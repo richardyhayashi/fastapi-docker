@@ -1,0 +1,4 @@
+.env
+.trunk
+
+__pycache__
