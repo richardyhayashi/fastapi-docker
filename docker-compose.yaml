@@ -4,7 +4,7 @@ services:
     container_name: fastapi_app_container
     build:
       context: .
-      Dockerfile: Dockerfile
+      dockerfile: Dockerfile
       args:
         # Use user id & group id in .env
         USER_ID: ${USER_ID:-0}
@@ -18,6 +18,8 @@ services:
       - /etc/group:/etc/group:ro
       - /etc/passwd:/etc/passwd:ro
       - /etc/shadow:/etc/shadow:ro
+    depends_on:
+      - nginx
     
   nginx:
     image: nginx:1.27.0-alpine
@@ -25,5 +27,3 @@ services:
       - 8080:80
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    depends_on:
-      - fastapi-app
